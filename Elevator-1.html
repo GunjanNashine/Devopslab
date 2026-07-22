@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Elevator Simulator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>Smart Elevator Simulation</h2>
+
+<button onclick="toggleDark()">Dark / Light Mode</button>
+
+<h3>
+Status :
+<span id="status">Idle</span>
+
+&nbsp;&nbsp;
+
+Current Floor :
+<span id="floorDisplay">1</span>
+
+&nbsp;&nbsp;
+
+Weight :
+<span id="weightDisplay">0</span> kg
+</h3>
+
+<div class="wrap">
+
+<div class="shaft">
+<div id="elevator" class="elevator">
+1
+</div>
+</div>
+
+<div>
+
+<div id="buttons"></div>
+
+<hr>
+
+<button onclick="openDoor()">Open Door</button>
+
+<button onclick="closeDoor()">Close Door</button>
+
+<br><br>
+
+<button onclick="stopLift()">Emergency Stop</button>
+
+<button onclick="alarm()">Alarm</button>
+
+<br><br>
+
+<button onclick="changeWeight(10)">+10 kg</button>
+
+<button onclick="changeWeight(-10)">-10 kg</button>
+
+<br><br>
+
+<label>
+<input type="checkbox" id="doorBlock">
+Door Blocked
+</label>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
