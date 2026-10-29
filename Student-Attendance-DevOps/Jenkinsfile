@@ -18,24 +18,39 @@ pipeline {
 
         stage('2. Install Dependencies') {
             steps {
-                echo '=== Installing Node.js Dependencies ==='
-                bat 'npm install'
+                script {
+                    def targetDir = fileExists('Student-Attendance-DevOps/package.json') ? 'Student-Attendance-DevOps' : '.'
+                    dir(targetDir) {
+                        echo "=== Installing Node.js Dependencies in ${targetDir} ==="
+                        bat 'npm.cmd install'
+                    }
+                }
             }
         }
 
         stage('3. Code Syntax & Database Verification') {
             steps {
-                echo '=== Checking Node syntax and database initialization ==='
-                bat 'node -c server.js'
-                bat 'node -c database/db.js'
-                bat 'node seed.js'
+                script {
+                    def targetDir = fileExists('Student-Attendance-DevOps/package.json') ? 'Student-Attendance-DevOps' : '.'
+                    dir(targetDir) {
+                        echo "=== Checking Node syntax and database initialization in ${targetDir} ==="
+                        bat 'node -c server.js'
+                        bat 'node -c database/db.js'
+                        bat 'node seed.js'
+                    }
+                }
             }
         }
 
         stage('4. Docker Build') {
             steps {
-                echo "=== Building Docker Image: ${DOCKER_IMAGE} ==="
-                bat "docker build -t ${DOCKER_IMAGE} -t ${APP_NAME}:latest ."
+                script {
+                    def targetDir = fileExists('Student-Attendance-DevOps/package.json') ? 'Student-Attendance-DevOps' : '.'
+                    dir(targetDir) {
+                        echo "=== Building Docker Image: ${DOCKER_IMAGE} in ${targetDir} ==="
+                        bat "docker build -t ${DOCKER_IMAGE} -t ${APP_NAME}:latest ."
+                    }
+                }
             }
         }
 
@@ -43,25 +58,24 @@ pipeline {
             steps {
                 echo '=== Running container in isolated test environment ==='
                 script {
-                    // Stop any existing test container
                     bat 'docker rm -f attendance-test-container || exit 0'
-                    // Run container detached
                     bat "docker run -d --name attendance-test-container -p 3001:3000 ${APP_NAME}:latest"
-                    // Wait 5 seconds for Express to boot
-                    sleep(time: 5, unit: 'SECONDS')
-                    // Verify healthcheck endpoint
+                    sleep(time: 6, unit: 'SECONDS')
                     bat 'curl -f http://localhost:3001/api/dashboard'
-                    // Cleanup test container
                     bat 'docker rm -f attendance-test-container'
                 }
             }
         }
 
-        stage('6. Selenium Automated Testing') {
+        stage('6. Automated Testing') {
             steps {
-                echo '=== Executing Automated Selenium WebDriver Test Suite ==='
-                // Run background server for tests if needed, or run against running container
-                bat 'npm run test:selenium'
+                script {
+                    def targetDir = fileExists('Student-Attendance-DevOps/package.json') ? 'Student-Attendance-DevOps' : '.'
+                    dir(targetDir) {
+                        echo "=== Executing Automated Verification Tests in ${targetDir} ==="
+                        bat 'npm.cmd run test:api'
+                    }
+                }
             }
         }
     }
@@ -69,7 +83,6 @@ pipeline {
     post {
         always {
             echo '=== Pipeline Execution Completed ==='
-            // Ensure any running test container is stopped
             bat 'docker rm -f attendance-test-container || exit 0'
         }
         success {
