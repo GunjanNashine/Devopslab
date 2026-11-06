@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: elevator-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: elevator
+
+  template:
+    metadata:
+      labels:
+        app: elevator
+
+    spec:
+      containers:
+        - name: elevator-container
+          image: elevator-app:latest
+          imagePullPolicy: IfNotPresent
+
