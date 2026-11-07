@@ -95,7 +95,9 @@ pipeline {
     post {
         always {
             echo '=== Pipeline Execution Completed ==='
-            bat 'docker rm -f attendance-test-container 2>nul || exit 0'
+            node {
+                bat 'docker rm -f attendance-test-container 2>nul || exit 0'
+            }
         }
         success {
             echo "✅ Build #${env.BUILD_NUMBER} Succeeded! Application is verified and ready for deployment."
