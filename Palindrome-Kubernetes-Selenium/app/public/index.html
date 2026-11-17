@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Lab 11: Palindrome Kubernetes & Selenium Automation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Banner -->
+        <header class="app-header">
+            <div class="header-badges">
+                <span class="badge k8s-badge"><span class="k8s-icon">☸</span> Kubernetes Deployed</span>
+                <span class="badge test-badge">⚡ Selenium Automated</span>
+                <span id="systemStatus" class="badge live-badge">● Pod Healthy</span>
+            </div>
+            <h1 id="pageTitle">DevOps Lab 11: Palindrome Verification System</h1>
+            <p class="subtitle">Cloud-Native Palindrome Engine with Automated Regression Testing</p>
+        </header>
+
+        <!-- Main Card Section -->
+        <main class="main-card">
+            <!-- Form Area -->
+            <section class="checker-form-section">
+                <label for="inputString" class="form-label">Enter String or Phrase to Verify:</label>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="inputString" 
+                        name="inputString" 
+                        class="text-input" 
+                        placeholder="e.g. radar, Madam, A man a plan a canal Panama, 12321" 
+                        autocomplete="off"
+                    >
+                    <button id="btnCheck" class="btn btn-primary" type="button">Check Palindrome</button>
+                    <button id="btnClear" class="btn btn-secondary" type="button">Clear</button>
+                </div>
+
+                <!-- Validation Alert -->
+                <div id="validationAlert" class="alert-box alert-error" style="display: none;">
+                    Please enter a non-empty string or number to evaluate.
+                </div>
+
+                <!-- Quick Samples -->
+                <div class="quick-samples">
+                    <span class="sample-label">Quick Test Presets:</span>
+                    <button type="button" class="chip chip-sample" data-sample="radar">radar</button>
+                    <button type="button" class="chip chip-sample" data-sample="Madam">Madam</button>
+                    <button type="button" class="chip chip-sample" data-sample="A man, a plan, a canal: Panama">Panama Phrase</button>
+                    <button type="button" class="chip chip-sample" data-sample="12321">12321</button>
+                    <button type="button" class="chip chip-sample" data-sample="Kubernetes">Kubernetes</button>
+                    <button type="button" class="chip chip-sample" data-sample="DevOps Pipeline">DevOps Pipeline</button>
+                </div>
+            </section>
+
+            <!-- Results Card -->
+            <section id="resultContainer" class="result-section" style="display: none;">
+                <div class="result-header">
+                    <span class="result-title">Evaluation Result:</span>
+                    <span id="resultBadge" class="status-badge">RESULT</span>
+                </div>
+
+                <div id="resultStatusText" class="result-message">
+                    <!-- Detailed result text injected dynamically -->
+                </div>
+
+                <div class="result-grid">
+                    <div class="grid-item">
+                        <span class="item-label">Original Input</span>
+                        <span id="originalTextDisplay" class="item-value">-</span>
+                    </div>
+                    <div class="grid-item">
+                        <span class="item-label">Normalized (Cleaned)</span>
+                        <span id="normalizedTextDisplay" class="item-value font-mono">-</span>
+                    </div>
+                    <div class="grid-item">
+                        <span class="item-label">Reversed String</span>
+                        <span id="reversedTextDisplay" class="item-value font-mono">-</span>
+                    </div>
+                    <div class="grid-item">
+                        <span class="item-label">Character Length</span>
+                        <span id="charCountDisplay" class="item-value">-</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verification History -->
+            <section class="history-section">
+                <div class="history-header">
+                    <h3>Execution History</h3>
+                    <span id="historyCount" class="badge">0 checks performed</span>
+                </div>
+                <div class="table-responsive">
+                    <table id="historyTable" class="history-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Time</th>
+                                <th>Input String</th>
+                                <th>Reversed</th>
+                                <th>Outcome</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr id="emptyHistoryRow">
+                                <td colspan="5" class="empty-state">No checks performed yet. Type a word and click "Check Palindrome".</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- Kubernetes Diagnostics Footer -->
+        <footer class="app-footer">
+            <div class="cluster-info">
+                <span>Pod ID: <strong id="k8sPodName">local-instance</strong></span>
+                <span>•</span>
+                <span>Target: <strong>Deployment / palindrome-app</strong></span>
+                <span>•</span>
+                <span>Port: <strong>3000 (NodePort: 30080)</strong></span>
+            </div>
+            <p class="copyright">DevOps Lab Experiment 11 • Palindrome SCM, Kubernetes Deployment & Selenium Automation</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

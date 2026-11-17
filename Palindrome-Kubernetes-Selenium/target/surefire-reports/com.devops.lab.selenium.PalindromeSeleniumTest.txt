@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.devops.lab.selenium.PalindromeSeleniumTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 37.65 s -- in com.devops.lab.selenium.PalindromeSeleniumTest

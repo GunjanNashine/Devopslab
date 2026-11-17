@@ -1,0 +1,18 @@
+{
+  "name": "palindrome-k8s-app",
+  "version": "1.0.0",
+  "description": "DevOps Lab 11: Palindrome Web App with Kubernetes Deployment and Selenium Automation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/app.test.js"
+  },
+  "keywords": [
+    "devops",
+    "kubernetes",
+    "selenium",
+    "palindrome"
+  ],
+  "author": "DevOps Engineer",
+  "license": "MIT"
+}
