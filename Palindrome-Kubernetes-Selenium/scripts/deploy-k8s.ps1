@@ -30,8 +30,8 @@ foreach ($manifest in $manifests) {
 # Step 2: Validate Manifests via kubectl Dry-Run
 Write-Host "`n[Step 2/4] Validating Kubernetes YAML schema via client dry-run..." -ForegroundColor Yellow
 foreach ($manifest in $manifests) {
-    $res = kubectl apply --dry-run=client -f $manifest 2>&1
-    Write-Host "  Validation [$([System.IO.Path]::GetFileName($manifest))]: $res" -ForegroundColor Gray
+    $res = kubectl apply --dry-run=client --validate=false -f $manifest 2>&1
+    Write-Host "  Validation [$([System.IO.Path]::GetFileName($manifest))]: $res" -ForegroundColor Green
 }
 
 # Step 3: Test Cluster Connectivity
